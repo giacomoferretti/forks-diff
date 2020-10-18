@@ -1,0 +1,8 @@
+{
+    "appName": {
+        "message": "Forks Diff Counter for GitHub"
+    },
+    "appDescription": {
+        "message": "This extension will show commits behind and ahead for every fork."
+    }
+}
