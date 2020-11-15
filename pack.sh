@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-VERSION="1.0.2"
+VERSION="1.0.3"
 ICONS_SIZES="16 32 48 64 128"
 OUTPUT_FOLDER="_generated_builds"
 
