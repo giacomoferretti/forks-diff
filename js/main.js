@@ -81,6 +81,9 @@
     }
     
     const network = document.getElementById("network");
+    if (network === null) {
+        return;
+    }
 
     function loadButtonAction(e) {
         e.target.setAttribute("class", "btn btn-sm disabled");
