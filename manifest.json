@@ -17,9 +17,12 @@
                 "*://github.com/*/network/members"
             ],
             "js": [
-                "js/main.js"
+                "js/inject.js"
             ],
             "run_at": "document_end"
         }
+    ],
+    "web_accessible_resources": [
+        "js/main.js"
     ]
 }
