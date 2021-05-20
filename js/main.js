@@ -111,9 +111,10 @@ const forksDiff = (function() {
 
     function addButton() {
         const network = document.getElementById('network');
-        if (network === null) {
-            return;
-        }
+
+        // Check if we have at least one div.repo, if not we are on Network page and not Forks page
+        if (network === null) return;
+        if (network.querySelector('div.repo') === null) return;
 
         const mainButton = document.createElement('button');
         mainButton.className = 'btn btn-sm';
