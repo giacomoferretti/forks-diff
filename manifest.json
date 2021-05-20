@@ -14,7 +14,7 @@
     "content_scripts": [
         {
             "matches": [
-                "*://github.com/*/network/members"
+                "*://github.com/*"
             ],
             "js": [
                 "js/inject.js"
