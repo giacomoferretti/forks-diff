@@ -1,8 +1,26 @@
 # Forks Diff Counter for GitHub
 
-## Download
+## Installation
 
-Get the extension on the [chrome web store](https://chrome.google.com/webstore/detail/eencojgimolmahmdfpnfbcldppmlokfg).
+### Chrome Web Store
+
+Get the extension on the [Chrome Web Store](https://chrome.google.com/webstore/detail/eencojgimolmahmdfpnfbcldppmlokfg).
+
+### Firefox Browser Add-ons
+
+Get the extension on the [Firefox Browser Add-ons](https://addons.mozilla.org/en-US/firefox/addon/forks-diff-counter-for-github/).
+
+### Unpacked
+
+#### Google Chrome
+
+1. Download the repo by using `git clone https://github.com/giacomoferretti/forks-diff-chrome`
+2. Visit `chrome://extensions/` in Google Chrome
+3. Enable "Developer mode"
+4. Click on "Load unpacked"
+5. Select the cloned folder
+
+When updating the plugin, remember to reload it.
 
 ## How to pack
 
