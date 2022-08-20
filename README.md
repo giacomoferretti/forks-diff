@@ -14,7 +14,7 @@ Get the extension on the [Firefox Browser Add-ons](https://addons.mozilla.org/en
 
 #### Google Chrome
 
-1. Download the repo by using `git clone https://github.com/giacomoferretti/forks-diff-chrome`
+1. Download the repo by using `git clone https://github.com/giacomoferretti/forks-diff`
 2. Visit `chrome://extensions/` in Google Chrome
 3. Enable "Developer mode"
 4. Click on "Load unpacked"

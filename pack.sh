@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-VERSION="1.2.0-chrome"
+VERSION="1.2.1-chrome"
 ICONS_SIZES="16 32 48 64 128"
 OUTPUT_FOLDER=".build"
 

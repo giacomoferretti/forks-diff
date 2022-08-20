@@ -133,9 +133,7 @@ const forksDiff = (function () {
   };
 
   const replaceStateListener = () => {
-    if (githubUrlRegex.test(location.href)) {
-      addButton();
-    }
+    addButton();
   };
 
   return {
