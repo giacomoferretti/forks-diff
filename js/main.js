@@ -132,19 +132,11 @@ const forksDiff = (function () {
     history.replaceState = _wr("replaceState");
   };
 
-  const replaceStateListener = () => {
-    addButton();
-  };
-
   return {
     addButton: addButton,
-    addReplaceStateEventListener: addReplaceStateEventListener,
-    replaceStateListener: replaceStateListener,
   };
 })();
 
 (function () {
-  // Add 'replaceState' listener
-  forksDiff.addReplaceStateEventListener();
-  window.addEventListener("replaceState", forksDiff.replaceStateListener);
+    forksDiff.addButton();
 })();
