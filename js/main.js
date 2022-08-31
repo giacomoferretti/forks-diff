@@ -88,7 +88,7 @@ const ForksDiff = (() => {
     e.target.removeEventListener("click", _buttonAction);
 
     // Iterate through repos
-    const repos = network.children;
+    const repos = document.getElementById("network").children;
     for (let i = 0; i < repos.length; i++) {
       // Skip root fork
       if (repos[i].getElementsByClassName("network-tree").length === 0) {
