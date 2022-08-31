@@ -100,7 +100,9 @@ const ForksDiff = (() => {
 
     // Start
     for (let i = parallelNum - 1; i >= 0; i--) {
-      _processRepo();
+      if (queue.length > 0) {
+        _processRepo();
+      }
     }
   };
 
