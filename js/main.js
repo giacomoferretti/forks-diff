@@ -84,7 +84,7 @@ const ForksDiff = (() => {
 
   const _buttonAction = (e) => {
     // Disable button
-    e.target.className = "btn ml-2 float-right disabled";
+    e.target.classList.add("disabled");
     e.target.removeEventListener("click", _buttonAction);
 
     // Iterate through repos
