@@ -1,7 +1,8 @@
 {
   "manifest_version": 3,
   "name": "__MSG_appName__",
-  "version": "1.2.1",
+  "version": "1.2.2",
+
   "description": "__MSG_appDescription__",
   "default_locale": "en",
   "icons": {
@@ -11,17 +12,11 @@
     "64": "icons/icon.64.png",
     "128": "icons/icon.128.png"
   },
+
   "content_scripts": [
     {
       "matches": ["*://github.com/*"],
-      "js": ["js/inject.js"],
-      "run_at": "document_end"
-    }
-  ],
-  "web_accessible_resources": [
-    {
-      "resources": ["js/main.js"],
-      "matches": ["*://github.com/*"]
+      "js": ["js/main.js"]
     }
   ]
 }

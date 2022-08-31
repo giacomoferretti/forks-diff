@@ -1,6 +1,6 @@
 "use strict";
 
-const forksDiff = (function () {
+const ForksDiff = (() => {
   // Icons
   const starIcon =
     '<svg aria-hidden="true" viewBox="0 0 16 16" version="1.1" height="16" width="16" class="octicon octicon-star"><path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z"></path></svg>';
@@ -18,14 +18,14 @@ const forksDiff = (function () {
   const queue = [];
   const parallelNum = 3;
 
-  const addSpan = (parent, text, className) => {
+  const _addSpan = (parent, text, className) => {
     const span = document.createElement("span");
     span.className = className;
     span.appendChild(document.createTextNode(text));
     parent.appendChild(span);
   };
 
-  const processRepo = () => {
+  const _processRepo = () => {
     const currentRepo = queue.shift();
 
     // Add spinner
@@ -47,25 +47,25 @@ const forksDiff = (function () {
       // Read diff
       const diffRegexResult = diffRegex.exec(body);
       if (!diffRegexResult) {
-        addSpan(currentRepo, "is even", "text-gray");
+        _addSpan(currentRepo, "is even", "text-gray");
       } else {
         const {
           groups: { a1, a2, b, c },
         } = diffRegexResult;
 
         if (a1 && a2) {
-          addSpan(currentRepo, "+" + a1, "cadd");
-          addSpan(currentRepo, " ");
-          addSpan(currentRepo, "-" + a2, "cdel");
+          _addSpan(currentRepo, "+" + a1, "cadd");
+          _addSpan(currentRepo, " ");
+          _addSpan(currentRepo, "-" + a2, "cdel");
         } else if (b) {
-          addSpan(currentRepo, "-" + b, "cdel");
+          _addSpan(currentRepo, "-" + b, "cdel");
         } else if (c) {
-          addSpan(currentRepo, "+" + c, "cadd");
+          _addSpan(currentRepo, "+" + c, "cadd");
         }
       }
 
       // Read stars
-      addSpan(currentRepo, " ");
+      _addSpan(currentRepo, " ");
       const stars = body.match(starsRegex);
       const starIndicator = document.createElement("span");
       starIndicator.innerHTML = starIcon + " " + stars[1];
@@ -73,7 +73,7 @@ const forksDiff = (function () {
 
       // Process next repo
       if (queue.length > 0) {
-        processRepo();
+        _processRepo();
       }
     });
 
@@ -82,69 +82,61 @@ const forksDiff = (function () {
     request.send();
   };
 
-  const mainButtonAction = (e) => {
+  const _buttonAction = (e) => {
     // Disable button
     e.target.className = "btn ml-2 float-right disabled";
-    e.target.removeEventListener("click", mainButtonAction);
+    e.target.removeEventListener("click", _buttonAction);
 
     // Iterate through repos
     const repos = network.children;
     for (let i = 0; i < repos.length; i++) {
-      if (repos[i].getElementsByClassName("network-tree").length === 0)
-        continue; // Skip original
+      // Skip root fork
+      if (repos[i].getElementsByClassName("network-tree").length === 0) {
+        continue;
+      }
 
       queue.push(repos[i]);
     }
 
     // Start
     for (let i = parallelNum - 1; i >= 0; i--) {
-      processRepo();
+      _processRepo();
     }
   };
 
-  const addButton = () => {
+  const init = () => {
     const network = document.getElementById("network");
 
     // Check if we have at least one div.repo, if not we are on Network page and not Forks page
-    if (network === null) return;
-    if (network.querySelector("div.repo") === null) return;
+    if (network === null || network.querySelector("div.repo") === null) return;
 
     const mainButton = document.createElement("button");
-    mainButton.className = "btn ml-2 float-right";
+    mainButton.className = "btn float-right";
     mainButton.innerHTML = forkIcon + " Load diff";
-    mainButton.addEventListener("click", mainButtonAction);
+    mainButton.addEventListener("click", _buttonAction);
     network.insertBefore(mainButton, network.childNodes[0]);
-  };
 
-  const addReplaceStateEventListener = () => {
-    // https://gist.github.com/rudiedirkx/fd568b08d7bffd6bd372
-    const _wr = (type) => {
-      const orig = history[type];
-      return () => {
-        const rv = orig.apply(this, arguments);
-        const e = new Event(type);
-        e.arguments = arguments;
-        window.dispatchEvent(e);
-        return rv;
-      };
-    };
-    history.pushState = _wr("pushState");
-    history.replaceState = _wr("replaceState");
-  };
-
-  const replaceStateListener = () => {
-    addButton();
+    // Add space if Refined Github is enabled
+    if (
+      mainButton.nextElementSibling.tagName === "A" &&
+      mainButton.nextElementSibling.href &&
+      mainButton.nextElementSibling.href.includes("useful-forks.github.io")
+    ) {
+      mainButton.classList.add("ml-2");
+    } else {
+      mainButton.classList.add("mr-2");
+    }
   };
 
   return {
-    addButton: addButton,
-    addReplaceStateEventListener: addReplaceStateEventListener,
-    replaceStateListener: replaceStateListener,
+    init: init,
   };
 })();
 
-(function () {
-  // Add 'replaceState' listener
-  forksDiff.addReplaceStateEventListener();
-  window.addEventListener("replaceState", forksDiff.replaceStateListener);
-})();
+// On load
+ForksDiff.init();
+
+// Add Turbo listener
+document.addEventListener("turbo:render", () => {
+  ForksDiff.init();
+});
