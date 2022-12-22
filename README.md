@@ -25,7 +25,7 @@ When updating the plugin, remember to reload it.
 
 ### Mozilla Firefox
 
-1. Changed `manifest_version` inside `manifest.json` from `3` to `2`
+1. Change `manifest_version` inside `manifest.json` from `3` to `2`
 2. Visit `about:debugging#/runtime/this-firefox`
 3. Under "Temporary Extensions" click on "Load Temporary Add-on..."
 4. Select `manifest.json`
