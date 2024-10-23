@@ -37,5 +37,5 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - run: pnpmnpm run --if-present build
+      - run: pnpm run --if-present build
     # - run: npm test
