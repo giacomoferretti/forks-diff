@@ -1,2 +1,4 @@
-.ignoreme
+.old
 .build
+node_modules/
+dist/

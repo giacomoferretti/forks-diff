@@ -1,17 +1,18 @@
 #!/usr/bin/env bash
 
-VERSION="1.2.4-chrome"
+VERSION="1.3.0-chrome"
 ICONS_SIZES="16 32 48 64 128"
 OUTPUT_FOLDER=".build"
 
 # Prepare icons
 for size in ${ICONS_SIZES}; do
   (
-    cd icons || exit 1
+    cd public/icons || exit 1
     inkscape -w "${size}" -h "${size}" source.svg --export-filename "icon.${size}.png"
   )
 done
 
 # Pack to zip
-mkdir "${OUTPUT_FOLDER}"
-7z a "${OUTPUT_FOLDER}/${VERSION}.zip" -x!pack.sh -x!icons/source.svg -x!.git -x!.gitignore -x!.ignoreme -x!.github -x!"${OUTPUT_FOLDER}"
+mkdir -p "${OUTPUT_FOLDER}"
+(cd dist && zip -r "${VERSION}.zip" ./*)
+mv dist/"${VERSION}.zip" "${OUTPUT_FOLDER}"
