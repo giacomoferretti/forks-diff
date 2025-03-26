@@ -46,4 +46,4 @@ If you find my projects useful, consider supporting me:
 
 Your support helps me continue improving these tools and creating new ones. Thank you! 🙌
 
-If you can't donate, I also appreciate **stars** ⭐ on my repositories!
+If you can't donate, I also appreciate **stars** ⭐!
